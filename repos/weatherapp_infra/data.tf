@@ -1,15 +1,20 @@
+data "github_user" "current" {
+  username = "tomp736"
+}
+
 data "github_repository" "repo" {
-  full_name = "tomp736/weatherapp_infra"
+  full_name = "tomp736/weatherapp-infra"
 }
 
 resource "github_repository_environment" "repo_environment" {
-  repository       = data.github_repository.repo.name
-  environment      = "example_environment"
-}
+  environment = "example"
+  repository  = data.github_repository.repo.name
 
-resource "github_actions_environment_secret" "test_secret" {
-  repository       = data.github_repository.repo.name
-  environment      = github_repository_environment.repo_environment.environment
-  secret_name      = "test_secret_name"
-  plaintext_value  = "%s"
+  reviewers {
+    users = [data.github_user.current.id]
+  }
+  deployment_branch_policy {
+    protected_branches     = true
+    custom_branch_policies = false
+  }
 }

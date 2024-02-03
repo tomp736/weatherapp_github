@@ -1,5 +1,5 @@
 module "weatherapp" {
-    source = "./repos/weatherapp"
+  source = "./repos/weatherapp"
 }
 
 module "weatherapp_infra" {

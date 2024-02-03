@@ -8,4 +8,10 @@ terraform {
 }
 
 # Configure the GitHub Provider
-provider "github" {}
+provider "github" {
+  token = var.gh_token
+}
+
+variable "gh_token" {
+  type = string
+}
